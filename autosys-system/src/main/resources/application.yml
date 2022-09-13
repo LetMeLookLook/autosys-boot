@@ -1,0 +1,10 @@
+spring:
+    profiles:
+        active: local
+        group:
+            local: db-local
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+mybatis-plus:
+    mapper-locations: classpath*:com/autosys/system/user/mapper/xml/UserMapper.xml

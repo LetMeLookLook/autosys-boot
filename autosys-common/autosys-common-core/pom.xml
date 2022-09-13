@@ -6,7 +6,6 @@
         <groupId>com.autosys</groupId>
         <artifactId>autosys-common</artifactId>
         <version>1.0.0</version>
-        <relativePath />
     </parent>
     <groupId>com.autosys</groupId>
     <artifactId>autosys-common-core</artifactId>
