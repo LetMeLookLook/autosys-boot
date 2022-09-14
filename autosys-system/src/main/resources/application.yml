@@ -7,4 +7,4 @@ spring:
         pathmatch:
             matching-strategy: ant_path_matcher
 mybatis-plus:
-    mapper-locations: classpath*:com/autosys/system/user/mapper/xml/UserMapper.xml
+    mapper-locations: classpath*:com/autosys/**/mapper/xml/*.xml

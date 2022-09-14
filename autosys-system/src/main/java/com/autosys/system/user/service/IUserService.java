@@ -1,6 +1,9 @@
 package com.autosys.system.user.service;
 
 import com.autosys.system.user.domain.entity.User;
+import com.autosys.system.user.domain.model.UserParamModel;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
  * @description 用户管理
@@ -44,4 +47,41 @@ public interface IUserService {
      * @date 2022年8月31日 15点32分
      */
     void insertUser(User user);
+
+    /**
+     * 注册用户
+     * @param userParam
+     * @return
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    User register(User userParam);
+
+    /**
+     * 根据用户ID获取用户信息
+     * @param id
+     * @return
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    User getById(String id);
+
+    /**
+     * 根据用户ID修改用户信息
+     * @param user
+     * @return
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    boolean updateById(User user);
+
+    /**
+     * 分页列表查询用户信息
+     * @param page
+     * @param paramModel
+     * @return IPage<User>
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    IPage<User> queryPageList(Page<User> page, UserParamModel paramModel);
 }

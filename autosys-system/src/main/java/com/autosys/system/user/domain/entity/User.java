@@ -1,6 +1,7 @@
 package com.autosys.system.user.domain.entity;
 
 import com.autosys.common.core.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
  * @date 2022年8月29日 16点13分
  */
 @Data
+@TableName("sys_user")
 public class User extends BaseEntity
 {
 

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.autosys.system.user.mapper.IUserMapper">
+
+	<sql id="Base_Column_List">
+    	id, username, user_type, email, phone, sex, password, status, del_flag, create_by, create_time, update_by, update_time, remark, salt
+  	</sql>
+
     <select id="checkUserNameUnique" parameterType="String" resultType="Integer">
 		select count(1) from sys_user where username = #{username} and del_flag = 0 limit 1
 	</select>
@@ -39,4 +44,25 @@
 		sysdate()
 		)
 	</insert>
+	<select id="queryPageList" parameterType="com.autosys.system.user.domain.model.UserParamModel" resultType="com.autosys.system.user.domain.entity.User">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sys_user
+		<where>
+			1=1
+			<if test="param.username != null and param.username != '' ">
+				AND username LIKE '%' || #{param.username} || '%'
+			</if>
+			<if test="param.status != null and param.status != '' ">
+				AND status = #{param.status}
+			</if>
+			AND del_flag = 0
+		</where>
+		<if test="param.orderKey != null and param.orderKey != '' ">
+			order by ${param.orderKey}
+		</if>
+		<if test="param.orderRule != null and param.orderRule != '' ">
+			${param.orderRule}
+		</if>
+	</select>
 </mapper>
