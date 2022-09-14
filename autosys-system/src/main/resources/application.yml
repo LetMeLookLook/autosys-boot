@@ -8,3 +8,10 @@ spring:
             matching-strategy: ant_path_matcher
 mybatis-plus:
     mapper-locations: classpath*:com/autosys/**/mapper/xml/*.xml
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    global-config:
+        db-config:
+            logic-delete-field: delFlag
+            logic-delete-value: 1
+            logic-not-delete-value: 0

@@ -84,6 +84,16 @@ public class UserController
         return CommonResult.success(userService.updateById(user));
     }
 
+    @ApiOperation("删除用户信息")
+    @GetMapping("/deleteById")
+    @ResponseBody
+    public CommonResult<Object> deleteById(String id) {
+        if(StringUtils.isBlank(id)){
+            return CommonResult.failed("用户ID为空");
+        }
+        return CommonResult.success(userService.deleteById(id));
+    }
+
     @ApiOperation("列表分页查询")
     @GetMapping("/queryPageList")
     @ResponseBody

@@ -84,4 +84,13 @@ public interface IUserService {
      * @date 2022年9月13日 14点23分
      */
     IPage<User> queryPageList(Page<User> page, UserParamModel paramModel);
+
+    /**
+     * 根据用户ID删除用户信息
+     * @param id
+     * @return
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    boolean deleteById(String id);
 }

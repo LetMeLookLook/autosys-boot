@@ -1,5 +1,6 @@
 package com.autosys.system.user.service.impl;
 
+import com.autosys.common.core.util.FieldUtil;
 import com.autosys.system.user.domain.entity.User;
 import com.autosys.system.user.domain.model.UserParamModel;
 import com.autosys.system.user.mapper.IUserMapper;
@@ -8,6 +9,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -60,7 +62,8 @@ public class UserServiceImpl extends ServiceImpl<IUserMapper, User> implements I
      * @date 2022年8月31日 15点32分
      */
     public void insertUser(User user){
-        userMapper.insertUser(user);
+        userMapper.insert(user);
+//        userMapper.insertUser(user);
     }
 
     /**
@@ -106,8 +109,21 @@ public class UserServiceImpl extends ServiceImpl<IUserMapper, User> implements I
      * @date 2022年9月13日 14点23分
      */
     public IPage<User> queryPageList(Page<User> page, UserParamModel paramModel){
-
+        if(StringUtils.isNotBlank(paramModel.getOrderKey())){
+            paramModel.setOrderKey(FieldUtil.convertFromCamel(paramModel.getOrderKey()));
+        }
         return userMapper.queryPageList(page, paramModel);
+    }
+
+    /**
+     * 根据用户ID删除用户信息
+     * @param id
+     * @return
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    public boolean deleteById(String id){
+        return userMapper.deleteById(id) > 0;
     }
 
 }

@@ -21,12 +21,6 @@ public class Page {
     private Integer pageNo;
 
     /**
-     * 排序方式， 如果为空的默认排序方式为车型, 传参类型类 字段名|排序方式
-     */
-    @ApiModelProperty(value = "排序字段")
-    private String sort;
-
-    /**
      * 页记录数
      */
     @ApiModelProperty(value = "页记录数")
