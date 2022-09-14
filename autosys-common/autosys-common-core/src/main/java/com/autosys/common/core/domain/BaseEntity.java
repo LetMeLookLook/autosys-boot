@@ -47,5 +47,5 @@ public class BaseEntity implements Serializable
 
     /** 删除标识（0-未删除，1-已删除） */
     @TableField(select = false)
-    private String delFlag;
+    private Integer delFlag;
 }

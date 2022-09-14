@@ -85,9 +85,9 @@ public class UserController
     }
 
     @ApiOperation("删除用户信息")
-    @GetMapping("/deleteById")
+    @PostMapping("/deleteById")
     @ResponseBody
-    public CommonResult<Object> deleteById(String id) {
+    public CommonResult<Object> deleteById(@RequestBody String id) {
         if(StringUtils.isBlank(id)){
             return CommonResult.failed("用户ID为空");
         }
@@ -99,8 +99,8 @@ public class UserController
     @ResponseBody
     public CommonResult<Object> queryPageList(UserParamModel paramModel) {
         Page<User> page = new Page<>(paramModel.getPageNo(), paramModel.getPageSize());
-        IPage<User> demandOrderModelList = userService.queryPageList(page,paramModel);
-        return CommonResult.success(demandOrderModelList);
+        IPage<User> resultList = userService.queryPageList(page,paramModel);
+        return CommonResult.success(resultList);
     }
 
     private String validateUser(User user){
