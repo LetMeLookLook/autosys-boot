@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -30,13 +31,20 @@ public abstract class BaseSwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
+        //设置请求头
+        List<RequestParameter> headers = new ArrayList<>();
+        RequestParameterBuilder tokenParameter = new RequestParameterBuilder();
+        RequestParameter param = tokenParameter.name("X-Access-Token").description("token令牌")
+                .required(false).in("header").build();
+        headers.add(param);
         SwaggerProperties swaggerProperties = swaggerProperties();
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getApiBasePackage()))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .globalRequestParameters(headers);
         if (swaggerProperties.isEnableSecurity()) {
             docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
         }

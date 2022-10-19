@@ -1,5 +1,9 @@
 package com.autosys.system.user.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.autosys.common.core.api.CommonResult;
+import com.autosys.common.core.constants.CommonConstant;
+import com.autosys.common.core.constants.enums.ResultCodeEnum;
 import com.autosys.common.core.util.FieldUtil;
 import com.autosys.system.user.domain.entity.User;
 import com.autosys.system.user.domain.model.UserParamModel;
@@ -11,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 
@@ -124,6 +129,38 @@ public class UserServiceImpl extends ServiceImpl<IUserMapper, User> implements I
      */
     public boolean deleteById(String id){
         return userMapper.deleteById(id) > 0;
+    }
+
+    /**
+     * 校验用户有效性
+     * @param user
+     * @return
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    @Override
+    public CommonResult<Object> checkUserIsEffective(User user){
+        //根据用户信息查询，该用户不存在
+        if (user == null) {
+            return CommonResult.failed(ResultCodeEnum.CONSUMER_LOGIN_ERROR_NOTEXITS);
+        }
+        //根据用户信息查询，该用户已禁用
+        if (CommonConstant.SYS_USER_STATUS_DISABLE.equals(user.getStatus())) {
+            return CommonResult.failed(ResultCodeEnum.CONSUMER_LOGIN_ERROR_DISABLED);
+        }
+        //根据用户信息查询，该用户已锁定
+        if (CommonConstant.SYS_USER_STATUS_LOCKED.equals(user.getStatus())) {
+            return CommonResult.failed(ResultCodeEnum.CONSUMER_LOGIN_ERROR_LOCKED);
+        }
+        //根据用户信息查询，密码是否正确
+        if (CommonConstant.SYS_USER_STATUS_LOCKED.equals(user.getStatus())) {
+            String userPassword = DigestUtils.md5DigestAsHex((user.getUsername() + user.getPassword() + user.getSalt()).getBytes());
+            String sysPassword = user.getPassword();
+            if (!sysPassword.equals(userPassword)) {
+                return CommonResult.failed(ResultCodeEnum.CONSUMER_LOGIN_ERROR_PASSWORD);
+            }
+        }
+        return null;
     }
 
 }

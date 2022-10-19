@@ -1,10 +1,15 @@
 package com.autosys.common.core.api;
 
+import com.autosys.common.core.constants.enums.ResultCodeEnum;
+import com.autosys.common.core.exception.ApiException;
+import lombok.Data;
+
 /**
  * @description 通用返回对象
  * @author jingqiu.wang
  * @date 2022年8月29日 16点34分
  */
+@Data
 public class CommonResult<T> {
     /**
      * 状态码
@@ -28,11 +33,16 @@ public class CommonResult<T> {
         this.data = data;
     }
 
+    private CommonResult(int resultCode, String message) {
+        this.message = message;
+        this.code = resultCode;
+    }
+
     /**
      * 成功返回结果（无参）
      */
     public static <T> CommonResult<T> success() {
-        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(),null);
+        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getResultCode(), ResultCodeEnum.SUCCESS.getMessage(),null);
     }
 
     /**
@@ -41,7 +51,7 @@ public class CommonResult<T> {
      * @param data 获取的数据
      */
     public static <T> CommonResult<T> success(T data) {
-        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getResultCode(), ResultCodeEnum.SUCCESS.getMessage(), data);
     }
 
 
@@ -52,24 +62,24 @@ public class CommonResult<T> {
      * @param  message 提示信息
      */
     public static <T> CommonResult<T> success(T data, String message) {
-        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), message, data);
+        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getResultCode(), message, data);
     }
 
     /**
      * 失败返回结果
-     * @param errorCode 错误码
+     * @param resultCodeEnum 错误码
      */
-    public static <T> CommonResult<T> failed(IErrorCode errorCode) {
-        return new CommonResult<T>(errorCode.getCode(), errorCode.getMessage(), null);
+    public static <T> CommonResult<T> failed(ResultCodeEnum resultCodeEnum) {
+        return new CommonResult<T>(resultCodeEnum.getResultCode(), resultCodeEnum.getMessage(), null);
     }
 
     /**
      * 失败返回结果
-     * @param errorCode 错误码
+     * @param resultCodeEnum 错误码
      * @param message 错误信息
      */
-    public static <T> CommonResult<T> failed(IErrorCode errorCode, String message) {
-        return new CommonResult<T>(errorCode.getCode(), message, null);
+    public static <T> CommonResult<T> failed(ResultCodeEnum resultCodeEnum, String message) {
+        return new CommonResult<T>(resultCodeEnum.getResultCode(), message, null);
     }
 
     /**
@@ -77,66 +87,24 @@ public class CommonResult<T> {
      * @param message 提示信息
      */
     public static <T> CommonResult<T> failed(String message) {
-        return new CommonResult<T>(ResultCode.FAILED.getCode(), message, null);
+        return new CommonResult<T>(ResultCodeEnum.FAILED.getResultCode(), message, null);
     }
 
     /**
      * 失败返回结果
      */
     public static <T> CommonResult<T> failed() {
-        return failed(ResultCode.FAILED);
+        return failed(ResultCodeEnum.FAILED);
     }
 
     /**
-     * 参数验证失败返回结果
+     * 返回失败，根据ApiException异常
+     * @param e ApiException异常
+     * @param <T> 泛型
+     * @return RestApiRes 统一返回结果
      */
-    public static <T> CommonResult<T> validateFailed() {
-        return failed(ResultCode.VALIDATE_FAILED);
+    public static <T> CommonResult<T> failed(ApiException e) {
+        return new CommonResult<>(e.getResultCode(), e.getMessage());
     }
 
-    /**
-     * 参数验证失败返回结果
-     * @param message 提示信息
-     */
-    public static <T> CommonResult<T> validateFailed(String message) {
-        return new CommonResult<T>(ResultCode.VALIDATE_FAILED.getCode(), message, null);
-    }
-
-    /**
-     * 未登录返回结果
-     */
-    public static <T> CommonResult<T> unauthorized(T data) {
-        return new CommonResult<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
-    }
-
-    /**
-     * 未授权返回结果
-     */
-    public static <T> CommonResult<T> forbidden(T data) {
-        return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
-    }
-
-    public long getCode() {
-        return code;
-    }
-
-    public void setCode(long code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }

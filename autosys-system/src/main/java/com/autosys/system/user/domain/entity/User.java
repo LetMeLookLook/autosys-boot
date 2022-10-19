@@ -27,6 +27,11 @@ public class User extends BaseEntity
     @Size(min = 0, max = 30, message = "用户账号长度不能超过30个字符")
     private String username;
 
+    /** 用户名称 */
+    @ApiModelProperty(value = "用户名称")
+    @Size(min = 0, max = 50, message = "用户名称长度不能超过50个字符")
+    private String realname;
+
     /** 用户类型 */
     @ApiModelProperty(value = "用户类型")
     private String userType;

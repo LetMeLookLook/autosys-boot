@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.autosys.common.core.mapper.ICommonMapper">
+	<!-- 根据用户名查询 -->
+	<select id="getUserByName"
+		resultType="com.autosys.common.core.domain.vo.LoginUser">
+		select * from sys_user where LOWER(username) =
+		LOWER(#{username})
+	</select>
+</mapper>

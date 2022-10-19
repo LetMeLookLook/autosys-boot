@@ -1,0 +1,4 @@
+autosys:
+  shiro:
+    #无需验证URL
+    excludeUrls:

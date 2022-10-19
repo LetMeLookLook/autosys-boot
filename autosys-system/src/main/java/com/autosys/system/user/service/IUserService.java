@@ -1,16 +1,19 @@
 package com.autosys.system.user.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.autosys.common.core.api.CommonResult;
 import com.autosys.system.user.domain.entity.User;
 import com.autosys.system.user.domain.model.UserParamModel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @description 用户管理
  * @author jingqiu.wang
  * @date 2022年8月29日 16点13分
  */
-public interface IUserService {
+public interface IUserService  extends IService<User> {
 
     /**
      * 验证用户名是否存在
@@ -93,4 +96,13 @@ public interface IUserService {
      * @date 2022年9月13日 14点23分
      */
     boolean deleteById(String id);
+
+    /**
+     * 校验用户用户有效性
+     * @param user
+     * @return
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    CommonResult<Object> checkUserIsEffective(User user);
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.autosys.system.user.mapper.IUserMapper">
 
 	<sql id="Base_Column_List">
-    	id, username, user_type, email, phone, sex, password, status, del_flag, create_by, create_time, update_by, update_time, remark, salt
+    	id, username, realname, user_type, email, phone, sex, password, status, del_flag, create_by, create_time, update_by, update_time, remark, salt
   	</sql>
 
     <select id="checkUserNameUnique" parameterType="String" resultType="Integer">
@@ -19,6 +19,7 @@
 		insert into sys_user(
 		id,
 		<if test="username != null and username != ''">username,</if>
+		<if test="realname != null and realname != ''">realname,</if>
 		<if test="userType != null and userType != ''">user_type,</if>
 		<if test="email != null and email != ''">email,</if>
 		<if test="phone != null and phone != ''">phone,</if>
@@ -32,6 +33,7 @@
 		)values(
 		<if test="id != null and id != ''">#{id},</if>
 		<if test="username != null and username != ''">#{username},</if>
+		<if test="realname != null and realname != ''">#{realname},</if>
 		<if test="userType != null and userType != ''">#{userType},</if>
 		<if test="email != null and email != ''">#{email},</if>
 		<if test="phone != null and phone != ''">#{phone},</if>
