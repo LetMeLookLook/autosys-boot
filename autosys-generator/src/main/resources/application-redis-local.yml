@@ -1,0 +1,6 @@
+spring:
+  redis:
+    database: 0
+    host: 124.222.116.181
+    port: 6379
+    password: qiu8520.

@@ -8,6 +8,16 @@ package com.autosys.common.core.constants;
 public interface CommonConstant {
 
     /**
+     * http请求
+     */
+    public static final String HTTP = "http://";
+
+    /**
+     * https请求
+     */
+    public static final String HTTPS = "https://";
+
+    /**
      * Http Header token
      */
     String X_ACCESS_TOKEN = "X-Access-Token";
@@ -38,4 +48,14 @@ public interface CommonConstant {
      * 用户缓存信息
      */
     String CACHE_SYS_USER  = "CACHE_SYS_USER";
+
+    /**
+     * UTF-8 字符集
+     */
+    public static final String UTF8 = "UTF-8";
+
+    /**
+     * GBK 字符集
+     */
+    public static final String GBK = "GBK";
 }

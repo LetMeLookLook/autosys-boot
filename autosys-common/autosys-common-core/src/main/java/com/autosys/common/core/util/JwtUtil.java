@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.autosys.common.core.api.CommonResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
+import com.autosys.common.core.util.StringUtils;
 
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;

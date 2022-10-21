@@ -1,6 +1,5 @@
 package com.autosys.system.user.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.autosys.common.core.api.CommonResult;
 import com.autosys.system.user.domain.entity.User;
 import com.autosys.system.user.domain.model.UserParamModel;
@@ -13,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author jingqiu.wang
  * @date 2022年8月29日 16点13分
  */
-public interface IUserService  extends IService<User> {
+public interface IUserService extends IService<User> {
 
     /**
      * 验证用户名是否存在

@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import com.autosys.common.core.util.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +68,8 @@ public class LoginController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/logout")
+	@ApiOperation("退出登录")
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public CommonResult<Object> logout(HttpServletRequest request,HttpServletResponse response) {
 		//用户退出逻辑
 	    String token = request.getHeader(CommonConstant.X_ACCESS_TOKEN);

@@ -6,7 +6,7 @@ import com.autosys.common.core.domain.vo.LoginUser;
 import com.autosys.common.core.mapper.ICommonMapper;
 import com.autosys.common.core.service.ICommonService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import com.autosys.common.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class CommonServiceImpl implements ICommonService {
 
 	@Override
 	@Cacheable(cacheNames= CommonConstant.CACHE_SYS_USER, key="#username")
-//	@SensitiveEncode
+	@SensitiveEncode
 	public LoginUser getUserByName(String username) {
 		if(StringUtils.isEmpty(username)) {
 			return null;

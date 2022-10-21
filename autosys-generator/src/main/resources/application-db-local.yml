@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: qiu8520.
+    url: jdbc:mysql://124.222.116.181:3306/autosys?serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    username: root

@@ -48,4 +48,21 @@ public class BaseEntity implements Serializable
     /** 删除标识（0-未删除，1-已删除） */
     @TableField(select = false)
     private Integer delFlag;
+
+    /** 请求参数 */
+    private Map<String, Object> params;
+
+    public Map<String, Object> getParams()
+    {
+        if (params == null)
+        {
+            params = new HashMap<>();
+        }
+        return params;
+    }
+
+    public void setParams(Map<String, Object> params)
+    {
+        this.params = params;
+    }
 }

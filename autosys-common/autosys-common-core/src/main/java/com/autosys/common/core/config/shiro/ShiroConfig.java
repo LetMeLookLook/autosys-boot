@@ -4,20 +4,15 @@ import com.autosys.common.core.config.AutosysBaseConfig;
 import com.autosys.common.core.config.shiro.filters.CustomShiroFilterFactoryBean;
 import com.autosys.common.core.config.shiro.filters.JwtFilter;
 import com.autosys.common.core.constants.CommonConstant;
+import com.autosys.common.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.crazycake.shiro.RedisCacheManager;
-import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +27,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * @author: Scott
- * @date: 2018/2/7
+ * @author: jingqiu.wang
+ * @date: 2022年10月20日 15点57分
  * @description: shiro 配置类
  */
 @Slf4j

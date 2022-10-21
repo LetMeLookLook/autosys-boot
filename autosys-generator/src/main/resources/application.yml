@@ -1,0 +1,26 @@
+spring:
+    profiles:
+        active: local
+        group:
+            local: db-local,redis-local
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+mybatis-plus:
+    mapper-locations: classpath*:com/autosys/**/mapper/xml/*.xml
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    global-config:
+        db-config:
+            logic-delete-field: delFlag
+            logic-delete-value: 1
+            logic-not-delete-value: 0
+generator:
+    # 作者
+    author: jingqiu.wang
+    # 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
+    packageName: com.ruoyi.system
+    # 自动去除表前缀，默认是false
+    autoRemovePre: false
+    # 表前缀（生成类名不会包含表前缀，多个用逗号分隔）
+    tablePrefix: sys_,log_

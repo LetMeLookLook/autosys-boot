@@ -4,7 +4,7 @@ import com.autosys.common.core.desensitization.annotation.SensitiveField;
 import com.autosys.common.core.desensitization.enums.SensitiveEnum;
 import com.autosys.common.core.util.encryption.AesEncryptUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import com.autosys.common.core.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;

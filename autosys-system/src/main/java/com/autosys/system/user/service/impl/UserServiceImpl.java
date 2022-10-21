@@ -1,10 +1,10 @@
 package com.autosys.system.user.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.autosys.common.core.api.CommonResult;
 import com.autosys.common.core.constants.CommonConstant;
 import com.autosys.common.core.constants.enums.ResultCodeEnum;
 import com.autosys.common.core.util.FieldUtil;
+import com.autosys.common.core.util.StringUtils;
 import com.autosys.system.user.domain.entity.User;
 import com.autosys.system.user.domain.model.UserParamModel;
 import com.autosys.system.user.mapper.IUserMapper;
@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 

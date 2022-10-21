@@ -20,6 +20,7 @@
     <modules>
         <module>autosys-system</module>
         <module>autosys-common</module>
+        <module>autosys-generator</module>
     </modules>
 
     <properties>
@@ -177,6 +178,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <nonFilteredFileExtensions>

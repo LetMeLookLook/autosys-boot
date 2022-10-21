@@ -7,7 +7,7 @@ import com.autosys.common.core.util.JwtUtil;
 import com.autosys.common.core.util.RedisUtil;
 import com.autosys.common.core.util.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import com.autosys.common.core.util.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -124,8 +124,7 @@ public class ShiroRealm extends AuthorizingRealm {
      * @return
      */
     public boolean jwtTokenRefresh(String token, String userName, String passWord) {
-        String cacheToken = String.valueOf(redisUtil.get(CommonConstant.PREFIX_USER_TOKEN + token));
-        if (StringUtils.isNotEmpty(cacheToken)) {
+        if (redisUtil.hasKey(CommonConstant.PREFIX_USER_TOKEN + token)) {
             // 校验token有效性
             if (!JwtUtil.verify(token, userName, passWord)) {
                 String newAuthorization = JwtUtil.sign(userName, passWord);
