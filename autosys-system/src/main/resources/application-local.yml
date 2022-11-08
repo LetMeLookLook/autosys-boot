@@ -10,3 +10,5 @@ server:
 spring:
     application:
         name: autosys-system
+logback:
+    path: D:\\logs
