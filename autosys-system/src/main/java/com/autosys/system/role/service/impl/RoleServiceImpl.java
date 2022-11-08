@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.management.Query;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -101,5 +102,16 @@ public class RoleServiceImpl extends ServiceImpl<IRoleMapper, Role> implements I
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("role_code",roleCode);
         return roleMapper.exists(queryWrapper);
+    }
+
+    /**
+     * 通过用户ID查询角色列表
+     * @param userId
+     * @return List<Role>
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    public List<Role> queryRoleByUserId(String userId){
+        return roleMapper.queryRoleByUserId(userId);
     }
 }

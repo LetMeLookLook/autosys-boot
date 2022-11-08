@@ -58,4 +58,14 @@ public interface CommonConstant {
      * GBK 字符集
      */
     public static final String GBK = "GBK";
+
+    /**
+     * 逻辑标识-是
+     */
+    public static final Integer LOGIC_YES = 1;
+
+    /**
+     * 逻辑标识-否
+     */
+    public static final Integer LOGIC_NO = 0;
 }

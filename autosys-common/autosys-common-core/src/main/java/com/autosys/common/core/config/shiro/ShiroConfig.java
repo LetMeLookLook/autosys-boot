@@ -77,9 +77,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**/*.ico", "anon");
 
         // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/sys/login", "anon"); //登录接口排除
-        filterChainDefinitionMap.put("/sys/logout", "anon"); //登出接口排除
-        filterChainDefinitionMap.put("/sys/user/register", "anon");//用户注册
+        filterChainDefinitionMap.put("/auth/login", "anon"); //登录接口排除
+        filterChainDefinitionMap.put("/auth/logout", "anon"); //登出接口排除
+        filterChainDefinitionMap.put("/auth/user/register", "anon");//用户注册
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/doc.html", "anon");
         // 自定义访问 /unauthorized/** 不通过JWTFilter

@@ -27,7 +27,6 @@ public class CommonServiceImpl implements ICommonService {
 
 	@Override
 	@Cacheable(cacheNames= CommonConstant.CACHE_SYS_USER, key="#username")
-	@SensitiveEncode
 	public LoginUser getUserByName(String username) {
 		if(StringUtils.isEmpty(username)) {
 			return null;

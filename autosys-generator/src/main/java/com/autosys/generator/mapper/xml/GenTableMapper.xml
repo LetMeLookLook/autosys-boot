@@ -60,11 +60,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectGenTableList" parameterType="com.autosys.generator.model.GenTableParamModel" resultMap="GenTableResult">
 		<include refid="selectGenTableVo"/>
 		<where>
-			<if test="tableName != null and tableName != ''">
-				AND lower(table_name) like lower(concat('%', #{tableName}, '%'))
+			<if test="param.tableName != null and param.tableName != ''">
+				AND lower(table_name) like lower(concat('%', #{param.tableName}, '%'))
 			</if>
-			<if test="tableComment != null and tableComment != ''">
-				AND lower(table_comment) like lower(concat('%', #{tableComment}, '%'))
+			<if test="param.tableComment != null and param.tableComment != ''">
+				AND lower(table_comment) like lower(concat('%', #{param.tableComment}, '%'))
 			</if>
 		</where>
 	</select>

@@ -49,6 +49,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             executeLogin(request, response);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             JwtUtil.responseError(response,401,"Token失效，请重新登录!");
             return false;
         }

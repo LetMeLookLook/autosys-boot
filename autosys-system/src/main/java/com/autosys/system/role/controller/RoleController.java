@@ -16,6 +16,7 @@ import com.autosys.common.core.util.StringUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -97,6 +98,13 @@ public class RoleController
         Page<Role> page = new Page<>(paramModel.getPageNo(), paramModel.getPageSize());
         IPage<Role> resultList = roleService.queryPageList(page,paramModel);
         return CommonResult.success(resultList);
+    }
+
+    @ApiOperation(value = "通过用户id查询角色列表", notes = "通过用户id查询角色列表")
+    @RequestMapping(value = "/queryByUser", method = RequestMethod.POST)
+    public CommonResult<List<Role>> queryByUser(@RequestBody RoleParamModel paramModel){
+        List<Role> sysRoleList=roleService.queryRoleByUserId(paramModel.getUserId());
+        return CommonResult.success(sysRoleList);
     }
 
     private String validateRole(Role role){

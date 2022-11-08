@@ -18,4 +18,8 @@ public class RoleParamModel extends Page {
     /** 角色名称 */
     @ApiModelProperty(value = "角色名称")
     private String roleName;
+
+    /** 用户ID */
+    @ApiModelProperty(value = "用户ID")
+    private String userId;
 }

@@ -19,8 +19,8 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     @Override
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
-                .apiBasePackage("com.autosys.system")
-                .title("Autosys-Boot 系统管理服务")
+                .apiBasePackage("com.autosys.generator")
+                .title("Autosys-Boot 代码生成服务")
                 .description("")
                 .contactName("Autosys")
                 .version("1.0")

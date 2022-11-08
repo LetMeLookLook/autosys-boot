@@ -7,6 +7,8 @@ import com.autosys.system.user.domain.model.UserParamModel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import java.util.List;
+
 /**
  * @description 角色管理
  * @author jingqiu.wang
@@ -68,4 +70,13 @@ public interface IRoleService {
      * @date 2022年9月13日 14点23分
      */
     boolean checkRoleCodeUnique(String roleCode);
+
+    /**
+     * 通过用户ID查询角色列表
+     * @param userId
+     * @return List<Role>
+     * @author jingqiu.wang
+     * @date 2022年9月13日 14点23分
+     */
+    List<Role> queryRoleByUserId(String userId);
 }

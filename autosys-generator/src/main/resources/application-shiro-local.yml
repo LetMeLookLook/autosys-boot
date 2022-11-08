@@ -1,0 +1,20 @@
+shiro:
+  enabled: true       # 开启 shiro，默认为 true
+  loginUrl: /login    # 登录地址，默认为"login.jsp"
+  successUrl: /index  # 登录成功后跳转的地址，默认为"/"
+  unauthorizedUrl: /unauthorized          # 未获授权默认跳转地址
+  sessionManager:
+    sessionIdCookieEnabled: true          # 是否允许通过 Cookie 实现会话跟踪，默认为 true。
+    sessionIdUrlRewritingEnabled: false   # 是否将JSESSIONID放到url中，默认为 true。
+
+shiro-redis:
+  enabled: true
+  redis-manager:
+    host: 124.222.116.181:6379
+    password: qiu8520.
+    database: 0
+  cache-manager:
+    key-prefix: "shiro:cache:"
+    expire: 600     # 单位：秒
+  session-dao:
+    key-prefix: "shiro:session:"

@@ -7,6 +7,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,13 +17,13 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2022年8月29日 16点34分
  */
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     /**
      * 自定义业务异常捕获
      * @param exception BizException
-     * @return RestApiRes<String>
+     * @return CommonResult<String>
      */
     @ExceptionHandler(value = ApiException.class)
     public CommonResult<String> exceptionHandler(ApiException exception) {
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler {
     /**
      * Exception拦截
      * @param exception Exception
-     * @return RestApiRes<String>
+     * @return CommonResult<String>
      */
     @ExceptionHandler(value = Exception.class)
     public CommonResult<String> exceptionHandler(Exception exception) {
@@ -47,7 +48,7 @@ public class GlobalExceptionHandler {
     /**
      * 校验参数Exception拦截
      * @param exception Exception
-     * @return RestApiRes<String>
+     * @return CommonResult<String>
      */
     @ExceptionHandler(BindException.class)
     public CommonResult<String> exceptionHandler(BindException exception) {

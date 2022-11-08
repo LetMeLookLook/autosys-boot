@@ -2,6 +2,7 @@ package com.autosys.common.core.api;
 
 import com.autosys.common.core.constants.enums.ResultCodeEnum;
 import com.autosys.common.core.exception.ApiException;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -14,35 +15,59 @@ public class CommonResult<T> {
     /**
      * 状态码
      */
-    private long code;
+    private Integer code;
     /**
      * 提示信息
      */
     private String message;
+
+    /**
+     * 结果码 四位数字
+     */
+    @ApiModelProperty(value = "结果码", position = 1, example = "1001")
+    private Integer resultCode;
+
+    /**
+     * code 成功
+     */
+    private static final int SUCCESS = 0;
+
+    /**
+     * code 失败
+     */
+    private static final int ERROR = 1;
+
     /**
      * 数据封装
      */
     private T data;
 
     protected CommonResult() {
+        this.code = SUCCESS;
+        this.resultCode = ResultCodeEnum.SUCCESS.getResultCode();
     }
 
-    protected CommonResult(long code, String message, T data) {
-        this.code = code;
-        this.message = message;
+    protected CommonResult(T data){
+        this();
         this.data = data;
     }
 
-    private CommonResult(int resultCode, String message) {
+    protected CommonResult(Integer code, String message, T data) {
+        this(code,message);
+        this.data = data;
+    }
+
+    private CommonResult(Integer resultCode, String message) {
         this.message = message;
-        this.code = resultCode;
+        this.code = ERROR;
+        this.resultCode = resultCode;
     }
 
     /**
      * 成功返回结果（无参）
      */
     public static <T> CommonResult<T> success() {
-        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getResultCode(), ResultCodeEnum.SUCCESS.getMessage(),null);
+        return new CommonResult<T>();
     }
 
     /**
@@ -51,18 +76,7 @@ public class CommonResult<T> {
      * @param data 获取的数据
      */
     public static <T> CommonResult<T> success(T data) {
-        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getResultCode(), ResultCodeEnum.SUCCESS.getMessage(), data);
-    }
-
-
-    /**
-     * 成功返回结果
-     *
-     * @param data 获取的数据
-     * @param  message 提示信息
-     */
-    public static <T> CommonResult<T> success(T data, String message) {
-        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getResultCode(), message, data);
+        return new CommonResult<T>(data);
     }
 
     /**
@@ -91,17 +105,10 @@ public class CommonResult<T> {
     }
 
     /**
-     * 失败返回结果
-     */
-    public static <T> CommonResult<T> failed() {
-        return failed(ResultCodeEnum.FAILED);
-    }
-
-    /**
      * 返回失败，根据ApiException异常
      * @param e ApiException异常
      * @param <T> 泛型
-     * @return RestApiRes 统一返回结果
+     * @return CommonResult 统一返回结果
      */
     public static <T> CommonResult<T> failed(ApiException e) {
         return new CommonResult<>(e.getResultCode(), e.getMessage());

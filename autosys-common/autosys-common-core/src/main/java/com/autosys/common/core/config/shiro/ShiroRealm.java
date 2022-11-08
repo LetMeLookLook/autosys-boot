@@ -71,7 +71,7 @@ public class ShiroRealm extends AuthorizingRealm {
         log.debug("===============Shiro身份认证开始============doGetAuthenticationInfo==========");
         String token = (String) auth.getCredentials();
         if (token == null) {
-            throw new AuthenticationException("tokjen为空!");
+            throw new AuthenticationException("token为空!");
         }
         // 校验token有效性
         LoginUser loginUser = this.checkUserTokenIsEffect(token);

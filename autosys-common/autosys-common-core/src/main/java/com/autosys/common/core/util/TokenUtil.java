@@ -83,10 +83,9 @@ public class TokenUtil {
      * @return
      */
     private static boolean jwtTokenRefresh(String token, String userName, String passWord, RedisUtil redisUtil) {
-        String cacheToken = String.valueOf(redisUtil.get(CommonConstant.PREFIX_USER_TOKEN + token));
-        if (StringUtils.isNotEmpty(cacheToken)) {
+        if (redisUtil.hasKey(CommonConstant.PREFIX_USER_TOKEN + token)) {
             // 校验token有效性
-            if (!JwtUtil.verify(cacheToken, userName, passWord)) {
+            if (!JwtUtil.verify(token, userName, passWord)) {
                 String newAuthorization = JwtUtil.sign(userName, passWord);
                 // 设置Toekn缓存有效时间
                 redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, newAuthorization,JwtUtil.EXPIRE_TIME * 2 / 1000);
@@ -108,8 +107,8 @@ public class TokenUtil {
         LoginUser loginUser = null;
         String loginUserKey = CommonConstant.CACHE_SYS_USER + "::" + username;
         //【重要】此处通过redis原生获取缓存用户，是为了解决微服务下system服务挂了，其他服务互调不通问题---
-//        if (redisUtil.hasKey(loginUserKey)) {
-        if (false) {
+        if (redisUtil.hasKey(loginUserKey)) {
+//        if (false) {
             try {
                 loginUser = (LoginUser) redisUtil.get(loginUserKey);
                 //解密用户

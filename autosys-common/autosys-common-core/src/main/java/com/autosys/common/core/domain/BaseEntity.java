@@ -43,6 +43,7 @@ public class BaseEntity implements Serializable
     private Date updateTime;
 
     /** 备注 */
+    @TableField(exist = false)
     private String remark;
 
     /** 删除标识（0-未删除，1-已删除） */
@@ -50,6 +51,7 @@ public class BaseEntity implements Serializable
     private Integer delFlag;
 
     /** 请求参数 */
+    @TableField(exist = false)
     private Map<String, Object> params;
 
     public Map<String, Object> getParams()

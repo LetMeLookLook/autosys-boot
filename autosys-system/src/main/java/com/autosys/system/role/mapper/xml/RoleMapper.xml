@@ -20,4 +20,18 @@
 		remark
   	</sql>
 
+	<select id="queryRoleByUserId" parameterType="java.lang.String" resultType="com.autosys.system.role.domain.entity.Role">
+		SELECT
+		  DISTINCT
+			a.id,
+			a.role_name roleName,
+			a.role_code roleCode
+		FROM
+			sys_role a,
+			sys_user_role b
+	    WHERE
+			a.id = b.role_id and
+			b.user_id = #{userId, jdbcType=VARCHAR}
+    </select>
+
 </mapper>

@@ -3,11 +3,15 @@ package com.autosys.system.login.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.autosys.common.core.api.CommonResult;
 import com.autosys.common.core.constants.CommonConstant;
+import com.autosys.common.core.constants.enums.ResultCodeEnum;
 import com.autosys.common.core.domain.vo.LoginUser;
+import com.autosys.common.core.exception.ApiException;
 import com.autosys.common.core.service.ICommonService;
 import com.autosys.common.core.util.JwtUtil;
 import com.autosys.common.core.util.RedisUtil;
 import com.autosys.system.login.domain.model.LoginModel;
+import com.autosys.system.role.domain.entity.Role;
+import com.autosys.system.role.service.IRoleService;
 import com.autosys.system.user.domain.entity.User;
 import com.autosys.system.user.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -24,7 +28,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @description 登录授权管理
@@ -32,19 +39,19 @@ import java.util.LinkedHashMap;
  * @date 2022年9月23日 14点45分
  */
 @RestController
-@RequestMapping("/sys")
+@RequestMapping("/auth")
 @Api(tags="登录授权管理")
 @Slf4j
 public class LoginController {
 	private final IUserService userService;
-
+	private final IRoleService roleService;
     private final RedisUtil redisUtil;
-
     @Resource
     private ICommonService commonService;
 
-	public LoginController(IUserService userService, RedisUtil redisUtil) {
+	public LoginController(IUserService userService, IRoleService roleService, RedisUtil redisUtil) {
 		this.userService = userService;
+		this.roleService = roleService;
 		this.redisUtil = redisUtil;
 	}
 
@@ -103,7 +110,30 @@ public class LoginController {
 		String token = JwtUtil.sign(username, sysPassword);
 		// 设置token缓存有效时间
 		redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, token,JwtUtil.EXPIRE_TIME * 2 / 1000);
-		System.out.println(redisUtil.get(CommonConstant.PREFIX_USER_TOKEN + token));;
+		//获取用户当前角色
+		List<Role> roleList = null;
+		roleList = roleService.queryRoleByUserId(user.getId());
+		if (roleList == null || roleList.size() == 0) {
+			throw new ApiException(ResultCodeEnum.CONSUMER_LOGIN_ERROR_NOROLES);
+		} else {
+			Role sysRole = roleList.get(0);
+			obj.put("roleInfo", sysRole);
+
+/*			redisUtil.set(Constants.PREFIX_ROLE_ID_TOKEN + token, sysRole.getId());
+			redisUtil.set(Constants.PREFIX_ROLE_CODE_TOKEN + token, sysRole.getRoleCode());
+			redisUtil.set(Constants.PREFIX_ROLE_NAME_TOKEN + token, sysRole.getRoleName());
+			redisUtil.set(Constants.PREFIX_USER_AD_TOKEN + token, sysUser.getUsername());
+			redisUtil.set(Constants.PREFIX_USER_NAME_TOKEN + token, sysUser.getRealname());
+			redisUtil.set(Constants.PREFIX_USER_ID_TOKEN + token, sysRole.getId());
+			//设置超时时间
+			redisUtil.expire(Constants.PREFIX_ROLE_ID_TOKEN + token, JwtUtil.EXPIRE_TIME / 1000);
+			redisUtil.expire(Constants.PREFIX_ROLE_CODE_TOKEN + token, JwtUtil.EXPIRE_TIME / 1000);
+			redisUtil.expire(Constants.PREFIX_ROLE_NAME_TOKEN + token, JwtUtil.EXPIRE_TIME / 1000);
+			redisUtil.expire(Constants.PREFIX_USER_AD_TOKEN + token, JwtUtil.EXPIRE_TIME / 1000);
+			redisUtil.expire(Constants.PREFIX_USER_NAME_TOKEN + token, JwtUtil.EXPIRE_TIME / 1000);
+			redisUtil.expire(Constants.PREFIX_USER_ID_TOKEN + token, JwtUtil.EXPIRE_TIME / 1000);*/
+
+		}
 		obj.put("token", token);
 		obj.put("userInfo", user);
 		return obj;
